@@ -32,7 +32,15 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
  I decided to model this as a ***snapshot fact table*** that shows the status of every vehicle at the end of every day. The field that determines the date is the ***time_gps*** field. The reason for this is because a lot of the business questions seemed to focus on ***activities that happened in a given day/week***. As a result, it appears that the business will get the most value from having the data modelled on at least a daily grain. The model is incremental and builds on records from the previous day (Day minus 1). Every vehicle can only have one record for a given day. This model can help business users know the status of every vehicle at the end of a day, as well as how many days have passed since a vehicle last received a gps signal.
  
  ### State
- I decided to model this as a ***Type 2 Slowly Changing Dimension***. This dataset contains data received every 15 minutes and shows the current state of a vehicle as defined by three states; ***is_deployed***, ***is_broken***, ***is_in_warehouse***. However, based on the kind of questions the business is looking to ask of the data, most of this data is redundant since this is essentially a snapshot of vehicle state, roughly every 15 minutes. What will be of value to the business will be to show state changes only. A state change in this model is defined as when any of the three vehicle states changes from **true** to **false** and vice-versa. Modelled as a Type 2 Slowly Changing Dimension, this model will close a record and open a new one when there's a state change in one of the three states; it will also track which of the states had a change so that the business can use this to answer key business questions.
+ I decided to model this as a ***Type 2 Slowly Changing Dimension***. This dataset contains data received every 15 minutes and shows the current state of a vehicle as defined by three states; ***is_deployed***, ***is_broken***, ***is_in_warehouse***. However, based on the kind of questions the business is looking to ask of the data, most of this data is redundant since this is essentially a snapshot of vehicle state, roughly every 15 minutes. What will be of value to the business will be to show state changes only. A state change in this model is defined as when any of the three vehicle states changes from **true** to **false** and vice-versa. Modeled as a Type 2 Slowly Changing Dimension, this model will close a record and open a new one when there's a state change in one of the three states; it will also track which of the states had a change so that the business can use this to answer key business questions.
+ 
+ ## PROS AND CONS OF MODELLING APPROACH
+ **Pros**
+ - Snapshot fact tables are very effective in helping the business track KPIs over a period of time. In our case, we will be able to see the status of vehicles as at the end of every day, and we can track this overtime to create insights.
+ - Type 2 slowly changing dimensions will allow us to accurately keep historical information. In our case, we will be able to keep track of historical state changes of vehicles.
+
+**Cons**
+For both the snapshot fact table and the type 2 slowly changing dimension, the modelling approach can cause the size of the tables to grow fast, and overtime, performance and storage could be a concern. Although the performance concern can be mitigated on by applying proper partitioning/indexing.
  
  ## Model structure
  
@@ -76,6 +84,10 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
  ### Variables used in query
  - **{var_d1}** : Current Day minus 1
  - **{var_d2}** : Current Day minus 2
+
+
+## DATA TESTS
+There are five data tests that were written for this task; two for **dott_vehicle.dim_vehicle_state** and three for **dott_vehicle.daily_vehicle_snapshot**. They can all be found in the **data_tests.sql** file.
 
 
  
