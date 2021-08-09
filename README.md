@@ -55,8 +55,14 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
 
 
  
+ ## SQL QUERIES (PRESTO)
+ - **daily_vehicle_snapshot_ddl.sql** : This is to create the table for dott_vehicle.daily_vehicle_snapshot
+ - **dim_vehicle_state_ddl.sql** : This is to create the table for dott_vehicle.dim_vehicle_state
+ - **dim_vehicle_state_incremental_load.sql** : This is the query to load dott_vehicle.dim_vehicle_state incrementally 
+ - **vehicle_snapshot_table_initial_load.sql** : This is the query to carry out the initial load (the very first day) for dott_vehicle.daily_vehicle_snapshot
+ - **vehicle_snapshot_table_incremental_load.sql** : This is the query to load dott_vehicle.daily_vehicle_snapshot subsequently, after the first day has been loaded
  
- ## Variables used in query
+ ### Variables used in query
  - **{var_d1}** : Current Day minus 1
  - **{var_d2}** : Current Day minus 2
 
