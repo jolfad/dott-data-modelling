@@ -25,7 +25,7 @@ WITH
       , num_gps_satellites
       , date_format(date_parse(substr(time_updated, 1, 19), '%Y-%m-%d %H:%i:%s'), '%Y%m%d') updated_date
       , date_format(date_parse(substr(time_gps, 1, 19), '%Y-%m-%d %H:%i:%s'), '%Y%m%d') gps_date
-      , '20210101' date_key
+      , {var_d1} date_key
       FROM
         staging.tbl_telemetry
       WHERE (date_format(date_parse(substr(time_gps, 1, 19), '%Y-%m-%d %H:%i:%s'), '%Y%m%d') = {var_d1})
