@@ -52,6 +52,17 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
  ### State
  
  ![image](https://user-images.githubusercontent.com/35803494/128680354-f7142f6d-23f1-4ff3-9c12-d8bacf772044.png)
+ 
+ ## SCHEMA AND OBJECTS
+ ### Schemas
+ - staging
+ - dott_vehicle
+
+### Tables
+- staging.tbl_telemetry
+- staging.tbl_states
+- dott_vehicle.daily_vehicle_snapshot
+- dott_vehicle.dim_vehicle_state
 
 
  
@@ -65,8 +76,6 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
  ### Variables used in query
  - **{var_d1}** : Current Day minus 1
  - **{var_d2}** : Current Day minus 2
-
-## Assumption schema
 
 
  
