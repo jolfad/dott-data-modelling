@@ -44,9 +44,52 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
 ![image](https://user-images.githubusercontent.com/35803494/128672979-de817e75-a953-4621-a7c6-15a56dae1052.png)
 
 
+ ## Data Flow 
+ ### Telemetry
+ 
+ ![image](https://user-images.githubusercontent.com/35803494/128679789-6eb2764c-4b9f-4e10-a9b8-4aea050a89a3.png)
+ 
+ ### State
+ 
+ ![image](https://user-images.githubusercontent.com/35803494/128680354-f7142f6d-23f1-4ff3-9c12-d8bacf772044.png)
+
+
+ 
  
  ## Variables used in query
  - **{var_d1}** : Current Day minus 1
  - **{var_d2}** : Current Day minus 2
+
+## Assumption schema
+
+
  
- ## Sample queries
+ ## Sample queries (Presto)
+ - **How many vehicles are deployed in each city/ country/ as a whole for a given day**    
+ *SELECT*  
+  *city_name*  
+*, country_name*  
+*, count(1) as deployed_vehicles*  
+*FROM*  
+  *dott_vehicle.dim_vehicle_state*  
+*WHERE ((date_format(date_parse(substr(start_date, 1, 19), '%Y-%m-%d %H:%i:%s'), '%Y%m%d') = YYYYMMDD) AND (new_deploy_ind = 'Y'))*  
+*GROUP BY city_name, country_name ;*  
+
+- **How many vehicles are lost in each city/ country/ as a whole for a given day?**  
+*SELECT*  
+  *b.city_name*  
+*, b.country_name*  
+*, count(1) AS lost_vehicle_count*  
+*FROM*  
+  *(dott_vehicle.daily_vehicle_snapshot a*  
+*LEFT JOIN (*  
+   *SELECT*   
+     *vehicle_id*  
+     *,city_name*  
+     *,country_name*    
+   *FROM*  
+     *dott_vehicle.dim_vehicle_state*  
+   *WHERE (end_date = 'N/A')*  
+*)  b ON (a.vehicle_id = b.vehicle_id))*  
+*WHERE ((a.date_key = YYYYMMDD) AND (a.lost_vehicle = 1))*  
+*GROUP BY b.city_name, b.country_name ;*  
