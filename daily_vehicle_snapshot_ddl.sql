@@ -15,6 +15,6 @@ CREATE TABLE dott_vehicle.daily_vehicle_snapshot (
    date_key varchar
 )
 WITH (
-   format = 'RCBINARY',
+   format = 'ORC',
    partitioned_by = ARRAY['date_key']
 );
