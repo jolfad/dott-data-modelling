@@ -13,7 +13,7 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_telemet
 ![image](https://user-images.githubusercontent.com/35803494/128660956-978f2b9a-bd33-4b56-b9a6-775962d1dc4e.png)
 
 ### State
-This dataset was provided in a csv file named ***data_modelling_test_tbl_states.csv***. It contains information about the state of vehicles and what city/country they are being operated out of. There are three possible states a vehicle can have; ***is_deployed***, ***is_broken***, ***is_in_warehouse***. Typically, a vehicle will have several records in an hout (roughly every 15 minutes).
+This dataset was provided in a csv file named ***data_modelling_test_tbl_states.csv***. It contains information about the state of vehicles and what city/country they are being operated out of. There are three possible states a vehicle can have; ***is_deployed***, ***is_broken***, ***is_in_warehouse***. Typically, a vehicle will have several records in an hour (roughly every 15 minutes).
 
 ![image](https://user-images.githubusercontent.com/35803494/128661421-db15f2c3-1b98-4a1f-8082-cc370a802581.png)
 
@@ -29,11 +29,13 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
  After studying the data and the business questions, I made the below decisions on the data modelling:
  
  ### Telemetry
- I decided to model this as a ***snapshot fact table*** that shows the status of every vehicle at the end of every day. The field that determines the date is the ***time_gps*** field. The reason for this was because a lot of the business questions seemed to focus on ***activities that happened in a given day/week***. As a result, it appears that the business will get the most value from having the data modelled on at least a daily grain.
+ I decided to model this as a ***snapshot fact table*** that shows the status of every vehicle at the end of every day. The field that determines the date is the ***time_gps*** field. The reason for this was because a lot of the business questions seemed to focus on ***activities that happened in a given day/week***. As a result, it appears that the business will get the most value from having the data modelled on at least a daily grain. The model is incremental and builds on records from the previous day (Day minus 1). Every vehicle can only have one record for a given day. This model can help business users know the status of every vehicle at the end of a day, as well as how many days have passed since a vehicle last received a gps signal.
  
  ### State
- I decided to model this as a ***Type 2 Slowly Changing Dimension***. 
+ I decided to model this as a ***Type 2 Slowly Changing Dimension***. This dataset contains data received every 15 minutes and shows the current state of a vehicle as defined by three states; ***is_deployed***, ***is_broken***, ***is_in_warehouse***. However, based on the kind of questions the business is looking to ask of the data, most of this data is redundant since this is essentially a snapshot of vehicle state, roughly every 15 minutes. What will be of value to the business will be to show state changes only. A state change in this model is defined as when any of the three vehicle states changes from **true** to **false** and vice-versa. Modelled as a Type 2 Slowly Changing Dimension, this model will close a record and open a new one when there's a state change in one of the three states; it will also track which of the states had a change so that the business can use this to answer key business questions.
  
  ## Tables and table structure
  
  ## Variables used in query
+ 
+ ## Sample queries
