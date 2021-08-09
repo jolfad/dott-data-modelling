@@ -1,4 +1,4 @@
-# Dot Data Modelling Task
+# Dott Data Modelling Task
 ## Introduction
 Two datasets were provided in the form of CSV files and the task is to model the data to help business users answer questions like the below:
 - How many vehicles are deployed in each city/ country/ as a whole for a given day/ week?
