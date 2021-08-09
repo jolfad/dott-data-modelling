@@ -9,7 +9,7 @@ CREATE TABLE dott_vehicle.daily_vehicle_snapshot (
    battery_full_ind integer,
    days_since_last_gps_signal bigint,
    lost_vehicle integer,
-   num_gps_satellites varchar,
+   num_gps_satellites integer,
    last_updated_date varchar,
    last_gps_date varchar,
    date_key varchar
