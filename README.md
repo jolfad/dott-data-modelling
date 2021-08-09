@@ -90,6 +90,8 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
 *WHERE ((date_format(date_parse(substr(start_date, 1, 19), '%Y-%m-%d %H:%i:%s'), '%Y%m%d') = YYYYMMDD) AND (new_deploy_ind = 'Y'))*  
 *GROUP BY city_name, country_name ;*  
 
+**NB: I defined a deploy as an is_deploy state change from "false" to "true"**
+
 - **How many vehicles are lost in each city/ country/ as a whole for a given day?**  
 *SELECT*  
   *b.city_name*  
