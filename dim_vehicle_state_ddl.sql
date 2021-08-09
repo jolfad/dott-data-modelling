@@ -14,5 +14,5 @@ CREATE TABLE dott_vehicle.dim_vehicle_state (
    snapshot_timestamp varchar
 )
 WITH (
-   format = 'RCBINARY'
+   format = 'ORC'
 );
