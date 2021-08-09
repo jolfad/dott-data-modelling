@@ -1,7 +1,7 @@
 START TRANSACTION;
 DELETE FROM dott_vehicle.dim_vehicle_state 
 INSERT INTO 
-ng_ops_support.dim_vehicle_state 
+dott_vehicle.dim_vehicle_state 
 (vehicle_id, start_date, end_date, hardware_generation, city_name,
 country_name, is_deployed, is_in_warehouse, is_broken, new_deploy_ind, new_broken_ind, new_warehouse_ind, snapshot_timestamp)
 WITH
