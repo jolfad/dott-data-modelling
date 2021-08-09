@@ -40,7 +40,7 @@ This dataset was provided in a csv file named ***data_modelling_test_tbl_states.
  - Type 2 slowly changing dimensions will allow us to accurately keep historical information. In our case, we will be able to keep track of historical state changes of vehicles.
 
 **Cons**
-For both the snapshot fact table and the type 2 slowly changing dimension, the modelling approach can cause the size of the tables to grow fast, and overtime, performance and storage could be a concern. Although the performance concern can be mitigated on by applying proper partitioning/indexing.
+- For both the snapshot fact table and the type 2 slowly changing dimension, the modelling approach can cause the size of the tables to grow fast, and overtime, performance and storage could be a concern. Although the performance concern can be mitigated on by applying proper partitioning/indexing.
  
  ## Model structure
  
